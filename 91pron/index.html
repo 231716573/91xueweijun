@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- 系统访问页面图片返回 403 的解决方法 -->
+    <meta name="referrer" content="no-referrer" />
+    <meta name=format-detection content="telephone=no, email=no">
+    <meta name=apple-mobile-web-app-capable content=yes>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>91pron</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+  <script type="text/javascript">
+  // 关于多屏适配的解决方案
+  (function flexible(window, document) {
+    var docEl = document.documentElement;
+    var dpr = window.devicePixelRatio || 1;
+
+    // adjust body font size
+    function setBodyFontSize() {
+      if (document.body) {
+        document.body.style.fontSize = (12 * dpr) + 'px';
+      }
+      else {
+        document.addEventListener('DOMContentLoaded', setBodyFontSize);
+      }
+    }
+    setBodyFontSize();
+
+    // set 1rem = viewWidth / 10
+    function setRemUnit() {
+      if(navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)){
+        var rem = docEl.clientWidth / 10;
+        docEl.style.fontSize = rem + 'px';
+      } else {
+        docEl.style.fontSize = '50px';
+      }
+    }
+
+    setRemUnit();
+
+    // reset rem unit on page resize
+    window.addEventListener('resize', setRemUnit);
+    window.addEventListener('pageshow', function (e) {
+      if (e.persisted) {
+        setRemUnit();
+      }
+    })
+
+    // detect 0.5px supports
+    if (dpr >= 2) {
+      var fakeBody = document.createElement('body');
+      var testElement = document.createElement('div');
+      testElement.style.border = '.5px solid transparent';
+      fakeBody.appendChild(testElement);
+      docEl.appendChild(fakeBody);
+      if (testElement.offsetHeight === 1) {
+        docEl.classList.add('hairlines');
+      }
+      docEl.removeChild(fakeBody);
+    }
+  }(window, document))
+  </script>
+</html>
